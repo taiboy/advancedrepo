@@ -18,7 +18,7 @@ body{
 }
 
 #menu{
-	background: #A3BEDA;
+	background: linear-gradient(to bottom, #A3BEDA, #FFF);
 	display: flex;
 	left: 0;
 	top: 0;
@@ -28,6 +28,7 @@ body{
 	justify-content: space-between;
 	width: 100%;
 	z-index: 100;
+	border-color: #808080;
 }
 
 #menu_left img{
@@ -55,6 +56,12 @@ body{
 .menu_li{
 	list-style:none;
     cursor: pointer;
+}
+
+.menu_li:hover{
+	list-style:none;
+    background-color: #E6E3E3;
+	cursor: pointer;
 }
 
 .menu_details[open]{
@@ -123,6 +130,11 @@ body{
 	width: 80%;
 	height: auto;
 }
+
+
+
+
+
 
 
 
@@ -219,6 +231,172 @@ body{
 	margin:0 auto;	
 	align-items: center;
 }
+
+/* questionnaire_list */
+
+.questionnaire_list{
+	display: grid;
+	margin-top: 13vh;
+	width: 100vw;
+	height: 90vh; 
+	grid-template-columns: 20% 1fr 20%;
+	grid-template-rows: 80px 8% 1fr 100px;
+	grid-template-areas: 
+		"left header right"
+		"left error right"
+		"left table right"
+		"left button right";
+}
+
+.leftcontainer{
+grid-area: left;
+background-color: #E6E3E3;
+}
+
+
+.leftcontainer .topic_list{
+	font-size: 20px;
+	margin-top: 20px;
+	padding: 3px 30% 0px 20%;
+	background-color: #FFFFFF;
+}
+
+.leftcontainer .topic_list img{
+	width: 20%;
+}
+
+.leftcontainer .search_box p{
+	/* padding: 3% 10% 3% 10%; */
+	padding-left: 10%;
+}
+
+
+.leftcontainer .search_box input#question{
+	/* padding: 3% 10% 3% 10%; */
+	padding-left: 10%;
+	margin: 5% 5% 5% 5%;
+	border-radius: 10px;
+}
+
+
+.leftcontainer .search_box input{
+	margin-left:20%;
+	padding: 3% 10% 3% 10%;
+	border-radius: 10px;
+	border: 1.0px solid #C7C7C7;
+}
+
+
+.questionnaire_maincontainer{
+	margin-top: 5%;
+	margin-left: 10%;
+	display: flex;
+}
+
+.questionnaire_maincontainer button{
+	border: 1px solid #C7C7C7;
+	width: 250px;
+	height: 300px;
+	padding: 0 10px 0 10px;
+	border-radius: 10%;
+	margin-right: 5%;
+	background-color: #B0CAE6;
+}
+
+.questionnaire_maincontainer button img{
+	border-color: #C7C7C7;
+	margin-bottom: 10px;
+}
+
+.questionnaire_maincontainer .administratorcard{
+	border: 1px solid #C7C7C7;
+	width: 250px;
+	height: 300px;
+	padding: 0 10px 0 10px;
+	border-radius: 10%;
+	margin-right: 5%;
+	background-color: #E6E3E3;
+	position: relative;
+}
+
+.questionnaire_maincontainer .administratorcard img{
+	 width: 113%;
+	 margin-top: -1px;
+	 margin-left: -12px;
+	 border-radius: 10px;
+	
+}
+
+.questionnaire_maincontainer .administratorcard span{
+	font-size: 10px;
+   
+}
+.questionnaire_maincontainer .administratorcard .cardtitle{
+	margin-top: 5px;
+	font-size: 15px;
+	text-align: center;
+	border-bottom: 1px solid #C7C7C7;
+}
+
+.questionnaire_maincontainer .administratorcard .carddetail{
+	margin-top: 3px;
+	font-size: 13px;
+	text-align: center;
+	border-bottom: 1px solid #C7C7C7;
+   
+}
+.questionnaire_maincontainer .administratorcard span .righticon{
+	margin: 9% 1% 1% 3%;
+	width: 28%;
+   
+}
+
+.questionnaire_maincontainer .administratorcard span .centericon{
+	margin: 9% 1% 1% 3%;
+	border-left: 1px solid #C7C7C7;
+	width: 28%;
+   
+}
+
+ .questionnaire_maincontainer .administratorcard span .lefticon{
+	margin: 9% 1% 1% 3%;
+	border-left: 1px solid #C7C7C7;
+	width: 28%;
+   
+}
+
+
+.menu{
+	list-style: none;
+}
+
+
+
+.questionnaire_maincontainer .administratorcard span .lefticon2{
+	margin: 9% 1% 1% 3%;
+	border-left: 1px solid #C7C7C7;
+	width: 20%;
+   
+}
+
+
+.menuSub {
+  position: absolute;
+  margin-left: -6px;
+  padding: 0;
+  display: none;
+}
+
+/*.openが付与された時、表示の設定*/
+.menuSub.open {
+  display: block;
+}
+
+
+
+  
+    
+
 
 
 /* V101 login  */

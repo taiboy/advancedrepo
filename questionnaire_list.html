@@ -48,6 +48,70 @@
 			</div> -->
 		</div>
  	</nav>
+
+	 <div id="regiMemmain" style=" background-image: url(images/regiMembackpic.png);">
+		<br>
+		<br><br><br><br>
+			<h2>メンバー登録</h2>
+			<p>各項目を入力してください。</p>
+			<div th:if="${#fields.hasErrors('${regiMemForm.name}')}" th:errors="${regiMemForm.name}" style="color: red;">validation massage</div>
+			<div th:if="${#fields.hasErrors('${regiMemForm.password}')}" th:errors="${regiMemForm.password}" style="color: red;">validation massage</div>
+			<div th:if="${#fields.hasErrors('${regiMemForm.zipCode}')}" th:errors="${regiMemForm.zipCode}" style="color: red;">validation massage</div>
+			<div th:if="${#fields.hasErrors('${regiMemForm.prefecture}')}" th:errors="${regiMemForm.prefecture}" style="color: red;">validation massage</div>
+			<div th:if="${#fields.hasErrors('${regiMemForm.address}')}" th:errors="${regiMemForm.address}" style="color: red;">validation massage</div>
+			<div th:if="${#fields.hasErrors('${regiMemForm.tel}')}" th:errors="${regiMemForm.tel}" style="color: red;">validation massage</div>
+			<div th:if="${#fields.hasErrors('${regiMemForm.mail}')}" th:errors="${regiMemForm.mail}" style="color: red;">validation massage</div>
+			<div th:if="${checkMailToken}" style="color: red;"> このメールアドレスはすでに登録されています。別のメールアドレスで登録してください。</div>
+			<form method="post" th:action="@{/confMem}" th:object="${regiMemForm}">
+				<div id="show_order_master_container">
+				<table>
+					<tr>
+						<td>メンバー名<br></td>
+						<td><input type="text" maxlength="20" th:field="*{name}"  id="regiMeminput" placeholder="XXXXXXXXXXXXXXXX"></td>
+					</tr>
+					<!-- 
+					<tr th:if="*{memberToken}">
+						<td>権限</td>
+						<td><select th:field="*{authority}">
+							<option value="Customer">Customer</option>
+							<option value="Employee">Employee</option>
+						</select></td>
+						
+					</tr> -->
+					<tr>
+						<td>パスワード<br><div class="regitxt">8~15桁</div></td>
+						<td><input type="text" maxlength="20" th:field="*{password}" id="regiMeminput"  placeholder="XXXXXXXX"></td>
+					</tr>
+					
+					<tr>
+						<td>郵便番号<div class="regitxt">（ー）ハイフンを含む8桁</div></td>
+						<td><input type="text" maxlength="20" th:field="*{zipCode}"  id="regiMeminput"  placeholder="XXX-XXXX"></td>
+					</tr>
+					
+					<tr>
+						<td>都道府県</td>
+						<td><input type="text" maxlength="20" th:field="*{prefecture}"  id="regiMeminput"  placeholder="XXXXXXXX"></td>
+					</tr>
+					<td>住所<div class="regitxt">マンション名・部屋番号まで</div></td>
+						<td><input type="text" maxlength="20" th:field="*{address}"  id="regiMeminput"  placeholder="XXXXXXXXXXXXXXXXX"></td>
+					</tr>
+					<td>電話番号<div class="regitxt">（ー）ハイフンを含む13桁</div></td>
+						<td><input type="text" maxlength="20" th:field="*{tel}"  id="regiMeminput"  placeholder="XXX-XXXX-XXXX"></td>
+					</tr>
+					<tr>
+						<td>メールアドレス</td>
+						<td><input type="text" th:field="*{mail}"  id="regiMeminput"  placeholder="XXXXXXXXXXX@XXXX"></td>
+					</tr>
+				</table>
+				<br>
+				<button   type="submit" id="regiMem_confirm_button" class="button">
+					登録確認
+				</button>
+				<!--  <button type="submit">登録確認</button>-->
+				
+			</form>
+			</div>
+		</div>
     
 </body>
 </html>

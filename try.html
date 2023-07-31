@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アンケート一覧</title>
+    <link rel="stylesheet" href="css/try.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+   
+</head>
+<body>
+    <nav id="menu">
+		<div id="menu_left">
+			<a th:href="@{/}">
+            <img id="logo" src="images\AHEAD_logo.png"></a>
+		</div>
+		<div id="menu_right">
+
+			<div class="menu_item">
+                ようこそ
+                <details class="menu_details">
+					<summary><img src="images\accountimg.svg" alt="">li9999〇〇様</summary>
+						<li class="menu_li"><a th:href="@{/goSearchHotel}">ログアウト</a></li>
+				</details>
+			</div>
+		</div>
+ 	</nav>
+
+
+    <!--
+        絞り込み機能について
+        回答者は「未回答」か「回答済み」を絞り込める
+        作成者・管理者はアンケートが「実施中」か「実施済み」か「一時停止」か「未実施」かを絞り込める．
+    -->
+
+	 <div class="questionnaire_list">
+	<div class="leftcontainer">
+		<div class="topic_list">
+			<!-- <p><img src="images/listicon.svg">アンケート一覧</p> -->
+      <label><img src="images/listicon.svg">アンケート一覧</label>
+		</div>
+
+		<div class="search_box">
+			<!-- <form action="#" method="post">
+				<p>絞り込み<br>
+					<p><input type="checkbox" id="nonanswer" name="">
+						<label for="nonanswer">未回答</label></p>
+					
+					<p><input type="checkbox" id="alreadyanswer" name="">
+						<label for="alreadyanswer">回答済み</label></p>
+
+					<p><input type="checkbox" id="c_live" name="">
+						<label for="c_live">作成済み（実施中）</label></p>
+					
+					<p><input type="checkbox" id="c_done" name="">
+						<label for="c_done">作成済み（実施済み）</label></p>
+						
+					<p><input type="checkbox" id="c_pendding" name="">
+						<label for="c_pendding">作成済み（一時停止）</label></p>
+					
+					<p><input type="checkbox" id="c_nonlive" name="">
+						<label for="c_nonlive">作成済み（未実施）</label></p>
+				</p>
+				<p>
+				<input type="submit" value="絞り込む"></p>
+			</form> -->
+
+      <div class="search_area">
+        <form id="selectForm">
+          <div class="search_ui category_search_box">
+            <label class="checkbox_margin">
+              <input type="radio" name="category" value="respondent" class="radio_input">
+              <span class="radio_parts padding_adjust1">回答者</span></label>
+          </div>
+          <div class="search_ui size_search_box pc">
+            <span id="sizeBox">
+
+              <div class="checkbox_container">
+              <label>
+                <input type="checkbox" name="size" value="nonanswer" class="checkbox_input size_sort">
+                <span class="checkbox_parts">未回答</span>
+              </label>
+              <label>
+                <input type="checkbox" name="size" value="alreadyanswer" class="checkbox_input size_sort">
+                <span class="checkbox_parts">回答済み</span>
+              </label>
+            </div>
+              
+              <div class="search_ui category_search_box">
+              <label class="checkbox_margin">
+                <input type="radio" name="category" value="administrator" class="radio_input">
+                <span class="radio_parts padding_adjust1">作成者・管理者</span></label>
+              </div>
+
+              <div class="checkbox_container">
+              <label>
+                <input type="checkbox" name="size" value="live" class="checkbox_input size_sort">
+                <span class="checkbox_parts">作成済み（実施中）</span>
+              </label>
+              <label>
+                  <input type="checkbox" name="size" value="donelive" class="checkbox_input size_sort">
+                  <span class="checkbox_parts">作成済み（実施済み）</span>
+                </label>
+              <label>
+                  <input type="checkbox" name="size" value="pendding" class="checkbox_input size_sort">
+                  <span class="checkbox_parts">作成済み（一時停止）</span>
+              </label>
+              <label>
+                  <input type="checkbox" name="size" value="nonlive" class="checkbox_input size_sort">
+                  <span class="checkbox_parts">作成済み（未実施）</span>
+              </label>
+            </div>
+              <div class="search_ui category_search_box">
+              <label class="checkbox_margin">
+                <input type="radio" name="category" value="" checked="checked" class="radio_input" id="allItem">
+                <span class="radio_parts padding_adjust1">全ての選択</span></label></div>
+            </span>
+          
+            <!-- <label class="all_btn">
+              <input type="checkbox" id="checkAll" name="size_all" class="checkbox_input">
+              <span class="checkbox_parts">全選択</span>
+          </label> -->
+          </div>
+        </form>
+      </div>
+
+      
+		</div>
+	</div>
+	
+	<div class="maincontainer">
+        <div class="wrapper">
+            <!--<h1>複数条件での絞り込み検索</h1>
+             絞込み検索UI start
+            <div class="search_area">
+              <form id="selectForm">
+                <div class="search_ui category_search_box">
+                  <label class="checkbox_margin">
+                    <input type="radio" name="category" value="respondent" class="radio_input">
+                    <span class="radio_parts padding_adjust1">回答者</span></label>
+                  <label class="checkbox_margin">
+                    <input type="radio" name="category" value="administrator" class="radio_input">
+                    <span class="radio_parts padding_adjust1">作成者・管理者</span></label>
+                  
+                  <label class="checkbox_margin">
+                    <input type="radio" name="category" value="" checked="checked" class="radio_input" id="allItem">
+                    <span class="radio_parts padding_adjust1">全ての選択</span></label>
+                </div>
+                <div class="search_ui size_search_box pc">
+                  <span id="sizeBox">
+                    <label>
+                      <input type="checkbox" name="size" value="nonanswer" class="checkbox_input size_sort">
+                      <span class="checkbox_parts">未回答</span>
+                    </label>
+                    <label>
+                      <input type="checkbox" name="size" value="alreadyanswer" class="checkbox_input size_sort">
+                      <span class="checkbox_parts">回答済み</span>
+                    </label>
+                    <label>
+                      <input type="checkbox" name="size" value="live" class="checkbox_input size_sort">
+                      <span class="checkbox_parts">作成済み（実施中）</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="size" value="donelive" class="checkbox_input size_sort">
+                        <span class="checkbox_parts">作成済み（実施済み）</span>
+                      </label>
+                    <label>
+                        <input type="checkbox" name="size" value="pendding" class="checkbox_input size_sort">
+                        <span class="checkbox_parts">作成済み（一時停止）</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" name="size" value="nonlive" class="checkbox_input size_sort">
+                        <span class="checkbox_parts">作成済み（未実施）</span>
+                    </label>
+                  </span>
+                  <label class="all_btn">
+                    <input type="checkbox" id="checkAll" name="size_all" class="checkbox_input">
+                    <span class="checkbox_parts">全選択</span>
+                </label> 
+                </div>
+              </form>
+            </div> -->
+
+        <div class="item_container list">
+            <button type="button" class="item createbutton" value="">
+                <img src="images/addicon.svg" alt=""><br>
+                新しいアンケート<br>を作成する。
+            </button>
+
+            <div class="item" data-category='["administrator"]' data-size="live">
+                <img src="images/trecking.jpg" alt="">
+            <span>2023/8/29まで</span>
+			<span>回答済み</span>
+			<span>実施中</span>
+                <p class="item_name">ハイキング参加アンケート</p>
+                <p class="item_detail">8/31ハイキング参加可否アンケート</p>
+               <div class="icon_container administrator">
+                <div class="icon">
+                    <img class="righticon" src="images/answericon.png" alt="">
+                </div>
+                <div class="icon">
+                    <img class="centericon" src="images/results.png" alt="">
+                </div>
+                <div class="icon stopmenu">
+                    <img class="lefticon" src="images/stopicon.svg" alt="">
+                    <ul class="menuSub_try">
+                        <li><a href="#">一時停止</a></li><br>					
+                        <li><a href="#">実施済みにする</a></li>
+                    </ul>
+                
+                </div>
+               </div>
+            </div>
+
+
+
+            <div class="item" data-category='["respondent"]' data-size="nonanswer">
+                <img src="images/golf.jpg" alt="">
+            <span>2023/9/29まで</span>
+			<span>未回答
+            </span>
+			<span>実施中</span>
+                <p class="item_name">ゴルフ参加アンケート</p>
+                <p class="item_detail">9/31ゴルフ参加可否アンケート</p>
+               <div class="icon_container respondent">
+                <div class="icon">
+                    
+                </div>
+                <div class="icon">
+                    <img class="centericon" src="images/answericon.png" alt="">
+                </div>
+                <div class="icon">
+                </div>
+               </div>
+            </div>
+
+
+            <div class="item" data-category='["administrator"]' data-size="nonlive">
+                <img src="images/party.jpg" alt="">
+                <span>2023/10/1~10/18まで</span>
+                <span>未実施</span>
+                    <p class="item_name">部署懇親会参加アンケート</p>
+                    <p class="item_detail">10/20の部署懇親会参加可否アンケート</p>
+                   <div class="icon_container administrator">
+                    <div class="icon">
+                        <img class="righticon" src="images/editicon.svg" alt="">
+                    </div>
+                    <div class="icon">
+                        <img class="centericon" src="images/copyicon.svg" alt="">
+                    </div>
+                    <div class="icon">
+                    </div>
+                    
+                   </div>
+            </div>
+
+
+            <div class="item" data-category='["administrator"]' data-size="donelive">
+                <img src="images/sky.jpg" alt="">
+                <span>回答済み</span>
+                <span>実施済み</span>
+                    <p class="item_name">スキー参加アンケート</p>
+                    <p class="item_detail">1/10のスキー参加可否のアンケート</p>
+                   <div class="icon_container administrator">
+                    <div class="icon">
+                        <img class="righticon" src="images/results.png" alt="">
+                    </div>
+                    <div class="icon">
+                        <img class="centericon" src="images/copyicon.svg" alt="">
+                    </div>
+                    <div class="icon">
+                       
+                    </div>
+                    
+                   </div>
+            </div>
+
+
+            <div class="item" data-category='["administrator"]' data-size="pendding">
+                <img src="images/climb.jpg" alt="">
+                <span>2023/8/29まで</span>
+                <span>回答済み</span>
+                <span>一時停止</span>
+                    <p class="item_name">登山参加アンケート</p>
+                    <p class="item_detail">8/31の登山参加可否のアンケート</p>
+                   <div class="icon_container administrator">
+                    <div class="icon">
+                        <img class="righticon" src="images/editicon.svg" alt="">
+                    </div>
+                    <div class="icon">
+                        <img class="centericon" src="images/copyicon.svg" alt="">
+                    </div>
+                    <div class="icon">
+                        <img class="lefticon" src="images/resumeicon.svg" alt="">
+                    </div>
+                    
+                   </div>
+            </div>
+
+
+            <div class="item" data-category='["4K"]' data-size="17inch">
+              <p class="item_name">空アンケート</p>
+              <img src="" alt="対象製品画像" />
+            </div>
+            <div class="item" data-category='["4K", "orgEL"]' data-size="17inch">
+              <p class="item_name">空アンケート</p>
+              <img src="" alt="対象製品画像" />
+            </div>
+            <div class="item" data-category='["4K", "orgEL"]' data-size="17inch">
+                <p class="item_name">空アンケート</p>
+                <img src="" alt="対象製品画像" />
+              </div>
+              <div class="item" data-category='["4K", "orgEL"]' data-size="17inch">
+                <p class="item_name">空アンケート</p>
+                <img src="" alt="対象製品画像" />
+              </div>
+          </div>
+</div>		
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+		<script>
+		  $(function() {
+			$(".stopmenu").hover(
+			  function() {
+                
+				//クラス名「open」を付与する
+				$(this).children(".menuSub_try").addClass("open");
+				//hoverが外れた場合
+			  }, function() {
+				//クラス名「open」を取り除く
+				$(this).children(".menuSub_try").removeClass("open");
+			  }
+			);
+		  });
+		</script>
+<script>
+    let searchUi = ".search_ui"; // 絞り込み検索条件設定エリア
+let listItem = ".item"; // 検索対象アイテム
+let hideItem = "hide_item"; // 対象外アイテムに付与されるclass名
+let checkBox = 'input[name="size"]'; //チェックボックスのnameを指定
+
+// 絞り込み条件の変更
+$(function () {
+$(document).on("change", searchUi + " input", function () {
+  search_filter();
+});
+});
+
+function search_filter() {
+// 非表示状態を解除
+$(listItem).removeClass(hideItem);
+for (let i = 0; i < $(searchUi).length; i++) {
+  let name = $(searchUi).eq(i).find("input").attr("name");
+  // チェックされた検索条件を取得
+  let searchData = get_selected_input_items(name);
+  // チェック項目無し or 全てを選択している場合
+  if (searchData.length === 0 || searchData[0] === "") {
+    continue;
+  }
+  // リスト内の各アイテムをチェック
+  for (let j = 0; j < $(listItem).length; j++) {
+    // アイテムに設定している項目を取得
+    let itemData = get_setting_values_in_item($(listItem).eq(j), name);
+    // 絞り込み対象かどうかを調べる
+    let check = array_match_check(itemData, searchData);
+    if (!check) {
+      $(listItem).eq(j).addClass(hideItem);
+    }
+  }
+}
+}
+
+// チェックの入った値の一覧を取得する
+function get_selected_input_items(name) {
+let searchData = [];
+$("[name=" + name + "]:checked").each(function () {
+  searchData.push($(this).val());
+});
+return searchData;
+}
+
+// リスト内のアイテムに設定している値の一覧を取得する
+function get_setting_values_in_item(target, data) {
+let itemData = target.data(data);
+if (!Array.isArray(itemData)) {
+  itemData = [itemData];
+}
+return itemData;
+}
+
+// 2つの配列内で一致する文字列があるかどうかを調べる
+function array_match_check(arr1, arr2) {
+// 絞り込み対象かどうかを調べる
+let arrCheck = false;
+for (let i = 0; i < arr1.length; i++) {
+  if (arr2.indexOf(arr1[i]) >= 0) {
+    arrCheck = true;
+    break;
+  }
+}
+return arrCheck;
+}
+
+// 全サイズ選択解除
+$(function () {
+$("#checkAll").on("click", function () {
+  $(".size_sort").prop("checked", this.checked);
+});
+$(".size_sort").on("click", function () {
+  if ($("#sizeBox :checked").length == $("#sizeBox :input").length) {
+    $("#checkAll").prop("checked", "checked");
+  } else {
+    $("#checkAll").prop("checked", false);
+  }
+});
+});
+
+
+
+  </script>
+
+</body>
+</html>
